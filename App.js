@@ -3,7 +3,7 @@ import { StyleSheet, Switch, Dimensions, View } from "react-native";
 import { Gyroscope } from "expo-sensors";
 import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
-Gyroscope.setUpdateInterval(100);
+Gyroscope.setUpdateInterval(200);
 
 export default function App() {
   const [subscription, setSubscription] = useState(null);
