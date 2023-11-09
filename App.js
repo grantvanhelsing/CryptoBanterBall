@@ -5,11 +5,14 @@ import Animated, { useSharedValue, withTiming } from "react-native-reanimated";
 
 Gyroscope.setUpdateInterval(200);
 
+const SMALL_BALL = Dimensions.get("screen").width / 10;
+const LARGE_BALL = Dimensions.get("screen").width / 3;
+
 export default function App() {
   const [subscription, setSubscription] = useState(null);
-  const [isSmall, setIsSmall] = useState(false);
+  const [isSmall, setIsSmall] = useState(true);
   const toggleSwitch = () => setIsSmall((previousState) => !previousState);
-  const ballDimension = useSharedValue(Dimensions.get("screen").width / 10);
+  const ballDimension = useSharedValue(SMALL_BALL);
 
   //to model a ball rolling nicely, we need to use equations of motion, with the gyroscope data
   //being the force applying acceleration along x/y axis, and then deriving velocity and ultimately position
@@ -60,11 +63,7 @@ export default function App() {
   }, [ballMovementData]);
 
   useEffect(() => {
-    ballDimension.value = withTiming(
-      isSmall
-        ? Dimensions.get("screen").width / 10
-        : Dimensions.get("screen").width / 3
-    );
+    ballDimension.value = withTiming(isSmall ? SMALL_BALL : LARGE_BALL);
   }, [isSmall]);
 
   return (
